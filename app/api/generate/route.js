@@ -13,9 +13,12 @@ export async function POST(request) {
         return Response.json({success: false, error: true, message : 'URL already exists' })
     }
 
+    else{
+
     const result = await collection.insertOne({
-        url: body.url,
+        url: body.url,  
         shorturl: body.shorturl
     })
     return Response.json({success: true, error: false, message : 'URL generated Successfully' })
+}
 }

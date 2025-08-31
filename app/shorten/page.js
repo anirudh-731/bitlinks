@@ -7,7 +7,7 @@ const Shorten = () => {
     const [url, seturl] = useState("")
     const [shorturl, setshorturl] = useState("")
     const [generated, setgenerated] = useState("")
-    
+
 
     const generate = () => {
         const myHeaders = new Headers();
@@ -25,14 +25,15 @@ const Shorten = () => {
             redirect: "follow"
         };
 
-        fetch("/api/generate", requestOptions)
+         fetch("/api/generate", requestOptions)
             .then((response) => response.json())
             .then((result) => {
-                setgenerated(`${window.location.origin}/${shorturl}`);
-                seturl("")
+                setgenerated(`${process.env.NEXT_PUBLIC_HOST}/${shorturl}`)
+                seturl("")   
                 setshorturl("")
                 console.log(result)
                 alert(result.message)
+            
             })
             .catch((error) => console.error(error));
     }
@@ -57,8 +58,8 @@ const Shorten = () => {
                     onClick={generate}
                     disabled={url.length < 3 || shorturl.length < 1}
                     className={`rounded-lg shadow-lg p-3 py-1 my-2 font-bold ${url.length < 3 || shorturl.length < 1
-                            ? 'bg-purple-400 text-gray-200 cursor-not-allowed'
-                            : 'bg-purple-500 text-white hover:bg-purple-600'}`}>
+                        ? 'bg-purple-400 text-gray-200 cursor-not-allowed'
+                        : 'bg-purple-500 text-white hover:bg-purple-600'}`}>
                     Generate
                 </button>
             </div>
